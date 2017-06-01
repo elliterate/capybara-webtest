@@ -1,0 +1,15 @@
+language: python
+dist: trusty
+matrix:
+  include:
+    - python: 2.7
+      env: TOXENV=py27
+    - python: 3.5
+      env: TOXENV=py35
+before_install:
+  # Upgrade pip to a version that supports `pip install .[test]`.
+  - pip install --upgrade pip
+install:
+  - pip install tox
+script: tox
+cache: pip
