@@ -11,5 +11,4 @@ def init_webtest_driver(app):
 
 WebTestDriverSuite = DriverSuite(
     "webtest",
-    skip=["frames", "hover", "js", "modals", "screenshot", "send_keys", "server",
-          "windows"])
+    skip=["css", "frames", "hover", "js", "modals", "screenshot", "send_keys", "server", "windows"])
