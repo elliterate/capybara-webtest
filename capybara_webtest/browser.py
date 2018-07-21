@@ -91,6 +91,9 @@ class Browser(object):
             self._request_path if path.startswith("?")
             else requested_uri.path)
 
+        if requested_path and not requested_path.startswith("/"):
+            requested_path = self._request_path.rsplit("/", 1)[0] + "/" + requested_path
+
         path_uri = ParseResult(
             scheme="",
             netloc="",
