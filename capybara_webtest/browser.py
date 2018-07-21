@@ -53,7 +53,11 @@ class Browser(object):
         for _ in range(self.driver.redirect_limit):
             if 300 <= self.last_response.status_code < 400:
                 path = self.last_response.headers["Location"]
-                self._process("GET", path, params, headers)
+                if self.last_response.status_code in {307, 308}:
+                    self._process(
+                        self.last_request.method, path, self.last_request.POST, headers)
+                else:
+                    self._process("GET", path, params, headers)
 
     def _process(self, method, path, params=None, headers=None):
         self._dom = None
