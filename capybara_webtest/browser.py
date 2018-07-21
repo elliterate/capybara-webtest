@@ -87,10 +87,14 @@ class Browser(object):
             query="",
             fragment="")
 
+        requested_path = (
+            self._request_path if path.startswith("?")
+            else requested_uri.path)
+
         path_uri = ParseResult(
             scheme="",
             netloc="",
-            path=requested_uri.path,
+            path=requested_path,
             params=requested_uri.params,
             query=requested_uri.query,
             fragment="")
