@@ -1,3 +1,5 @@
+import re
+
 from capybara.compat import ParseResult, urlparse
 from capybara.html import HTML
 from capybara.utils import cached_property, decode_bytes
@@ -31,8 +33,14 @@ class Browser(object):
         self._process_and_follow_redirects("GET", path)
 
     def follow(self, method, path):
-        if path.startswith("#") or path.lower().startswith("javascript:"):
+        if (
+            # 1. Anchor on the current page
+            re.sub(r"^{}".format(re.escape(self._request_path)), "", path).startswith("#") or
+            # 2. Inline JavaScript
+            path.lower().startswith("javascript:")
+        ):
             return
+
         self._process_and_follow_redirects(method, path, None, {"Referer": self.current_url})
 
     def submit(self, method, path, params):
