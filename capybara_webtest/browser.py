@@ -85,7 +85,7 @@ class Browser(object):
             path=requested_uri.path,
             params=requested_uri.params,
             query=requested_uri.query,
-            fragment=requested_uri.fragment)
+            fragment="")
 
         base_url = decode_bytes(base_uri.geturl())
         path_url = decode_bytes(path_uri.geturl())
