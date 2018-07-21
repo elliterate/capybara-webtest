@@ -49,6 +49,11 @@ class Browser(object):
 
         self._process_and_follow_redirects(method, path, params, {"Referer": self.current_url})
 
+    def refresh(self):
+        self._reset_cache()
+
+        self.last_response = self.client.request(self.last_request)
+
     @property
     def html(self):
         return decode_bytes(self.last_response.body) if self.last_response else ""
@@ -114,3 +119,6 @@ class Browser(object):
                                               headers=headers,
                                               POST=params)
         self.last_response = self.client.request(self.last_request)
+
+    def _reset_cache(self):
+        self._dom = None

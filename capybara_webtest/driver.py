@@ -35,6 +35,9 @@ class Driver(Base):
     def visit(self, path):
         self.browser.visit(path)
 
+    def refresh(self):
+        self.browser.refresh()
+
     def follow(self, method, path):
         self.browser.follow(method, path)
 
