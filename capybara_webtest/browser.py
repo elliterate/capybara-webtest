@@ -107,14 +107,11 @@ class Browser(object):
             query=requested_uri.query,
             fragment="")
 
-        base_url = decode_bytes(base_uri.geturl())
-        path_url = decode_bytes(path_uri.geturl())
-
         self._current_scheme = base_uri.scheme
         self._current_netloc = base_uri.netloc
 
-        self.last_request = TestRequest.blank(path_url,
-                                              base_url=base_url or None,
+        self.last_request = TestRequest.blank(path_uri.geturl(),
+                                              base_url=base_uri.geturl() or None,
                                               method=method.upper(),
                                               headers=headers,
                                               POST=params)
